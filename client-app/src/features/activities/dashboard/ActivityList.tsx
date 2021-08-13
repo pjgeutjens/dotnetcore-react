@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { SyntheticEvent, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { Button, Item, Label, Segment } from 'semantic-ui-react'
 import { useStore } from '../../../app/stores/store'
 
@@ -27,7 +28,7 @@ export default observer(function ActivityList() {
                                 <div>{activity.city}, {activity.venue}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button floated='right' onClick={() => activityStore.selectActivity(activity.id)} content='View' color='blue' />
+                                <Button floated='right' as={NavLink} to={`/activities/${activity.id}`} content='View' color='blue' />
                                 <Button name={activity.id} loading={loading && target === activity.id} floated='right' onClick={(e) => handleActivityDelete(e, activity.id)} content='Delete' color='red' />
                                 <Label basic content={activity.category} />
                             </Item.Extra>
