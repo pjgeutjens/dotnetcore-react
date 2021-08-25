@@ -26,13 +26,14 @@ export default class ProfileStore {
             const profile = await agent.Profiles.get(userName);
             runInAction(() => {
                 this.profile = profile;
-                this.loadingProfile = false}
+                this.loadingProfile = false
+            }
             )
 
         } catch (error) {
             console.log(error);
             runInAction(() => this.loadingProfile = false)
-            
+
         }
     }
 
@@ -52,7 +53,7 @@ export default class ProfileStore {
                 this.uploading = false;
             })
         } catch (error) {
-            console.log(error);            
+            console.log(error);
             runInAction(() => {
                 this.uploading = false;
             })
@@ -72,10 +73,28 @@ export default class ProfileStore {
                     this.loading = false;
                 }
             })
-            
+
         } catch (error) {
             console.log(error);
             runInAction(() => this.loading = false)
+        }
+    }
+
+    updateProfile = async (profile: Partial<Profile>) => {
+        this.loading = true;
+        try {
+            await agent.Profiles.updateProfile(profile);
+            runInAction(() => {
+                if (profile.displayName && profile.displayName !==
+                    store.userStore.user?.displayName) {
+                    store.userStore.setDisplayName(profile.displayName);
+                }
+                this.profile = { ...this.profile, ...profile as Profile };
+                this.loading = false;
+            })
+        } catch (error) {
+            console.log(error);
+            runInAction(() => this.loading = false);
         }
     }
 
@@ -89,11 +108,11 @@ export default class ProfileStore {
                 }
                 this.loading = false;
             })
-            
+
         } catch (error) {
             console.log(error);
             runInAction(() => this.loading = false)
-            
+
         }
     }
 }

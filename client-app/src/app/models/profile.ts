@@ -22,3 +22,16 @@ export interface Photo {
     url: string,
     isMain: boolean
 }
+
+export class ProfileFormValues {
+    displayName: string = ''
+    bio?: string = ''
+
+    constructor(profile?: ProfileFormValues | Profile | null) {
+        if (profile) {
+            this.displayName = profile.displayName;
+            this.bio = profile.bio;
+        }
+        
+    }
+}
