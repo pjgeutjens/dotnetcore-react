@@ -28,6 +28,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-toastify": "^7.0.4",
+    "rimraf": "^3.0.2",
     "run-script-os": "^1.1.6",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
@@ -40,8 +41,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "postbuild": "run-script-os",
-    "postbuild:linux:darwin": "mv build ../API/wwwroot",
-    "postbuild:windows": "rmdir /Q /S ..\\API\\wwwroot && move build ..\\API\\wwwroot",
+    "postbuild:linux:darwin": "rimraf ../API/wwwroot && mv build ../API/wwwroot",
+    "postbuild:windows": "rimraf ../API/wwwroot && move build ../API/wwwroot",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
